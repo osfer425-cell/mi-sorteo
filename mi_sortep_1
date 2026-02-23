@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SorteoRifa - ¡Gana con nosotros!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        .ticket-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 8px;
+        }
+
+        .ticket-num {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            user-select: none;
+        }
+
+        .ticket-num:hover {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .ticket-selected {
+            background-color: #1d4ed8 !important;
+            color: white !important;
+            border-color: #1d4ed8 !important;
+            box-shadow: 0 4px 6px -1px rgba(29, 78, 216, 0.3);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        /* Modal Animation */
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+        .hidden-modal {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .hidden-modal .modal-content {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl font-bold text-blue-600 tracking-tight">SorteoRifa</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition">Inicio</a>
+                    <a href="#sorteos" class="text-gray-700 hover:text-blue-600 font-medium transition">Sorteos</a>
+                    <a href="#buscar" class="text-gray-700 hover:text-blue-600 font-medium transition">Buscar Boleto</a>
+                    <a href="#ayuda" class="text-gray-700 hover:text-blue-600 font-medium transition">Ayuda</a>
+                </div>
+                <div>
+                    <button class="bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition flex items-center gap-2">
+                        <i class="fas fa-ticket-alt"></i> Mis Boletos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient text-white py-16 md:py-24 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block bg-blue-400 bg-opacity-30 px-4 py-1 rounded-full text-sm font-semibold mb-6 border border-blue-300 border-opacity-30">
+                🎉 Sorteos verificados y seguros
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">SorteoRifa: ¡Tu suerte comienza aquí!</h1>
+            <p class="text-xl opacity-90 mb-10 max-w-2xl mx-auto">Participa en nuestros sorteos inspirados en la Lotería Nacional y gana premios increíbles con total transparencia.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#sorteos" class="bg-white text-blue-700 px-8 py-4 rounded-xl font-bold shadow-xl hover:bg-gray-100 transition transform hover:-translate-y-1">Ver Sorteos Activos</a>
+                <a href="#ayuda" class="bg-blue-900 bg-opacity-30 border border-white border-opacity-40 text-white px-8 py-4 rounded-xl font-bold hover:bg-opacity-50 transition">¿Cómo funciona?</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Active Sorteos -->
+    <section id="sorteos" class="py-16 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Sorteos Disponibles</h2>
+            <div class="w-20 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 group">
+                <div class="relative h-56 bg-gray-200 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80" alt="Camioneta Ford Raptor" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full uppercase shadow-md">Activo</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold mb-2 text-gray-800">Camioneta Ford Raptor 2024</h3>
+                    <p class="text-gray-600 text-sm mb-6">Equipada al máximo + Bono de puntualidad de $50,000 MXN si pagas en menos de 24 horas.</p>
+                    <div class="flex justify-between items-center mb-6 p-4 bg-gray-50 rounded-xl">
+                        <div>
+                            <span class="text-2xl font-bold text-blue-600">$150.00</span>
+                            <span class="text-gray-400 text-sm"> / Boleto</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] text-gray-400 font-bold uppercase">Sorteo el:</span>
+                            <span class="text-sm font-semibold text-gray-700">15 DIC 2024</span>
+                        </div>
+                    </div>
+                    <button onclick="scrollToPanel()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i> Comprar Boletos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Panel -->
+    <section id="buscar" class="bg-slate-100 py-16 px-4 border-t border-b border-slate-200">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+                <div class="p-8 border-b border-gray-100 text-center bg-gray-50">
+                    <h2 class="text-2xl font-bold mb-2">Panel de Selección</h2>
+                    <p class="text-gray-500">Elige tus números de la suerte para la <b>Raptor 2024</b></p>
+                </div>
+
+                <div class="p-6 md:p-10">
+                    <!-- Search & Filter -->
+                    <div class="flex flex-col md:flex-row gap-4 mb-8">
+                        <div class="flex-1 relative">
+                            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <input type="number" id="ticketSearch" placeholder="Busca tu número favorito..." class="w-full pl-12 pr-4 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none transition text-lg">
+                        </div>
+                        <button onclick="quickSelect(5)" class="bg-gray-800 text-white px-6 py-4 rounded-xl font-semibold hover:bg-black transition flex items-center justify-center gap-2">
+                            <i class="fas fa-dice"></i> Dame 5 al azar
+                        </button>
+                    </div>
+
+                    <!-- Ticket Display Panel -->
+                    <div class="bg-gray-50 p-4 md:p-6 rounded-2xl border border-gray-200 mb-8">
+                        <div class="flex justify-between items-center mb-4 px-2">
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Listado de Boletos</span>
+                            <span class="text-xs text-blue-600 font-semibold bg-blue-50 px-2 py-1 rounded">1,000 disponibles</span>
+                        </div>
+                        <div id="ticketContainer" class="ticket-grid max-h-[450px] overflow-y-auto pr-2">
+                            <!-- JS populate -->
+                        </div>
+                    </div>
+
+                    <!-- Selection Footer -->
+                    <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center bg-blue-600 p-6 md:p-8 rounded-2xl text-white shadow-xl shadow-blue-200 gap-6">
+                        <div class="flex-1">
+                            <p class="text-xs font-bold uppercase tracking-widest opacity-80 mb-3">Tus boletos seleccionados</p>
+                            <div id="selectionList" class="flex flex-wrap gap-2">
+                                <span class="text-blue-200 italic">No has seleccionado boletos aún...</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center md:items-end">
+                            <div class="text-center md:text-right mb-4">
+                                <p class="text-blue-100 text-sm opacity-80">Subtotal</p>
+                                <p id="totalPrice" class="text-4xl font-black">$0.00</p>
+                            </div>
+                            <button id="checkoutBtn" disabled onclick="openRegisterModal()" class="w-full md:w-auto bg-green-500 text-white px-10 py-4 rounded-xl font-black text-lg opacity-50 cursor-not-allowed hover:bg-green-400 transition transform hover:scale-105 shadow-xl flex items-center justify-center gap-3">
+                                <i class="fas fa-check-circle text-xl"></i> APARTAR AHORA
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Registro -->
+    <div id="registerModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black bg-opacity-60 modal-overlay hidden-modal">
+        <div class="bg-white w-full max-w-md rounded-3xl overflow-hidden shadow-2xl modal-content">
+            <div class="bg-blue-600 p-6 text-white flex justify-between items-center">
+                <h3 class="text-xl font-bold">Información de Apartado</h3>
+                <button onclick="closeRegisterModal()" class="text-white hover:text-blue-200 text-2xl">&times;</button>
+            </div>
+            <div class="p-8">
+                <p class="text-gray-500 mb-6 text-sm">Ingresa tus datos para registrar tus boletos en nuestro sistema y enviarte los datos de pago.</p>
+                <form id="purchaseForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Nombre Completo</label>
+                        <input type="text" id="userName" required placeholder="Ej. Juan Pérez" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase mb-1">WhatsApp</label>
+                            <input type="tel" id="userPhone" required placeholder="10 dígitos" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Estado</label>
+                            <select id="userState" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                                <option value="CDMX">CDMX</option>
+                                <option value="Jalisco">Jalisco</option>
+                                <option value="Nuevo León">Nuevo León</option>
+                                <option value="Otro">Otro...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-lg flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i> Confirmar y Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <section id="ayuda" class="py-20 px-4 max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">¿Tienes dudas?</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4 class="font-bold text-gray-800 text-lg mb-2">¿Es seguro participar?</h4>
+                <p class="text-gray-600 text-sm">Totalmente. Nos basamos en los resultados de la Lotería Nacional para garantizar transparencia absoluta en cada sorteo.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h4 class="font-bold text-gray-800 text-lg mb-2">Métodos de Pago</h4>
+                <p class="text-gray-600 text-sm">Aceptamos transferencias SPEI, depósitos en OXXO y practicajas BBVA. Tienes 24 horas para liquidar tu boleto.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 text-white py-16 px-4">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
+            <div class="md:col-span-2">
+                <h3 class="text-3xl font-bold text-blue-500 mb-6">SorteoRifa</h3>
+                <p class="text-gray-400 mb-6 max-w-sm">Cumpliendo sueños con los mejores sorteos de México. Únete a nuestra comunidad de ganadores y cambia tu vida hoy mismo.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center hover:bg-blue-600 transition border border-gray-800"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center hover:bg-pink-600 transition border border-gray-800"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center hover:bg-green-600 transition border border-gray-800"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-6">Navegación</h4>
+                <ul class="text-gray-400 space-y-3">
+                    <li><a href="#" class="hover:text-blue-400">Inicio</a></li>
+                    <li><a href="#sorteos" class="hover:text-blue-400">Sorteos</a></li>
+                    <li><a href="#buscar" class="hover:text-blue-400">Buscar Boletos</a></li>
+                    <li><a href="#ayuda" class="hover:text-blue-400">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-6">Contacto</h4>
+                <p class="text-gray-400 text-sm mb-4"><i class="fas fa-envelope mr-2"></i> soporte@sorteorifa.com</p>
+                <p class="text-gray-400 text-sm mb-4"><i class="fas fa-phone mr-2"></i> +52 55 1234 5678</p>
+                <p class="text-gray-400 text-sm"><i class="fas fa-map-marker-alt mr-2"></i> Monterrey, NL, México</p>
+            </div>
+        </div>
+        <div class="mt-16 pt-8 border-t border-gray-900 text-center text-gray-500 text-xs">
+            © 2024 SorteoRifa. Sitio de entretenimiento. Basado en sorteos de Lotería Nacional.
+        </div>
+    </footer>
+
+    <script>
+        const TICKET_PRICE = 150;
+        const totalTicketsCount = 1000;
+        let selectedTickets = new Set();
+
+        const ticketContainer = document.getElementById('ticketContainer');
+        const selectionList = document.getElementById('selectionList');
+        const totalPriceEl = document.getElementById('totalPrice');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const searchInput = document.getElementById('ticketSearch');
+        const registerModal = document.getElementById('registerModal');
+        const purchaseForm = document.getElementById('purchaseForm');
+
+        // Generación de Boletos
+        function generateTickets() {
+            ticketContainer.innerHTML = '';
+            for (let i = 0; i < totalTicketsCount; i++) {
+                const num = i.toString().padStart(3, '0');
+                const btn = document.createElement('div');
+                btn.className = 'ticket-num bg-white';
+                btn.textContent = num;
+                btn.dataset.number = num;
+                btn.onclick = () => toggleTicket(num);
+                ticketContainer.appendChild(btn);
+            }
+        }
+
+        function toggleTicket(num) {
+            if (selectedTickets.has(num)) {
+                selectedTickets.delete(num);
+            } else {
+                if (selectedTickets.size >= 10) {
+                    alert("Por ahora solo puedes seleccionar hasta 10 boletos.");
+                    return;
+                }
+                selectedTickets.add(num);
+            }
+            updateUI();
+        }
+
+        function quickSelect(count) {
+            const available = [];
+            for(let i=0; i<totalTicketsCount; i++){
+                const n = i.toString().padStart(3, '0');
+                if(!selectedTickets.has(n)) available.push(n);
+            }
+            
+            for(let i=0; i<count; i++){
+                if(available.length === 0) break;
+                const randIdx = Math.floor(Math.random() * available.length);
+                selectedTickets.add(available.splice(randIdx, 1)[0]);
+            }
+            updateUI();
+        }
+
+        function updateUI() {
+            document.querySelectorAll('.ticket-num').forEach(btn => {
+                if (selectedTickets.has(btn.dataset.number)) {
+                    btn.classList.add('ticket-selected');
+                } else {
+                    btn.classList.remove('ticket-selected');
+                }
+            });
+
+            if (selectedTickets.size === 0) {
+                selectionList.innerHTML = '<span class="text-blue-200 italic">No has seleccionado boletos aún...</span>';
+                checkoutBtn.disabled = true;
+                checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                selectionList.innerHTML = Array.from(selectedTickets)
+                    .sort()
+                    .map(num => `<span class="bg-white text-blue-700 px-3 py-1 rounded-lg text-xs font-bold border border-blue-200 shadow-sm">${num}</span>`)
+                    .join('');
+                checkoutBtn.disabled = false;
+                checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            const total = selectedTickets.size * TICKET_PRICE;
+            totalPriceEl.textContent = `$${total.toLocaleString('es-MX', { minimumFractionDigits: 2 })}`;
+        }
+
+        // Modal Logic
+        function openRegisterModal() {
+            registerModal.classList.remove('hidden-modal');
+        }
+
+        function closeRegisterModal() {
+            registerModal.classList.add('hidden-modal');
+        }
+
+        // WhatsApp Integration
+        purchaseForm.onsubmit = (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+            const state = document.getElementById('userState').value;
+            const tickets = Array.from(selectedTickets).sort().join(', ');
+            const total = selectedTickets.size * TICKET_PRICE;
+            
+            const message = `¡Hola SorteoRifa! 👋\n\nQuiero apartar mis boletos para la *Ford Raptor 2024* 🛻\n\n👤 *Nombre:* ${name}\n📱 *WhatsApp:* ${phone}\n📍 *Estado:* ${state}\n\n🎟️ *Boletos:* ${tickets}\n💰 *Total:* $${total.toFixed(2)} MXN\n\nEspero los datos para realizar mi pago. ¡Gracias!`;
+            
+            const whatsappUrl = `https://wa.me/525512345678?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            closeRegisterModal();
+        };
+
+        // Search
+        searchInput.oninput = (e) => {
+            const filter = e.target.value;
+            const tickets = document.querySelectorAll('.ticket-num');
+            tickets.forEach(t => {
+                t.style.display = t.dataset.number.includes(filter) ? 'flex' : 'none';
+            });
+        };
+
+        function scrollToPanel() {
+            document.getElementById('buscar').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.onload = generateTickets;
+    </script>
+</body>
+</html>
